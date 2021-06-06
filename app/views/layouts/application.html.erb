@@ -17,6 +17,18 @@
   </head>
 
   <body>
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal"> <%= link_to 'シャッフルアプリ', root_path, class: 'text-dark' %> </h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+      <%# <a class="p-2 text-dark" href="#">サンプル</a> %>
+      <% if logged_in?%>
+        <span>ログインユーザー: <%= current_user.name %></span>
+        <%= link_to 'ログアウト', logout_path, method: :post, class: "btn btn-outline-secondary" %></li>
+      <% end %>
+    <%# <a class="btn btn-outline-primary" href="#">サインアップ</a>
+    <a class="btn btn-outline-primary" href="#">ログイン</a> %>
+    </nav>
+  </div>
     <div class="container">
       <%= render 'layouts/flash_messages' %>
 
