@@ -4,4 +4,5 @@ class ShuffleList < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   # TODO: item0個の場合に保存できないようにする
+  # TODO: 同一list内でユニーク制約をつける
 end

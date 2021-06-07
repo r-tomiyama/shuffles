@@ -1,0 +1,8 @@
+<p>実行結果: <%= @result.name %></p>
+
+<p>その他候補</p>
+<ul>
+    <% @others.each do |other| %>
+        <li><%= other.name %></li>
+    <% end %>
+</ul>

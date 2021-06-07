@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   post 'logout', to: 'sessions#destroy'
 
   resources :shuffle_lists, only: %i[index create]
+  post 'execute', to: 'shuffle_lists#execute'
 end

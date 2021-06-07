@@ -20,9 +20,25 @@ class ShuffleListsController < ApplicationController
     end
   end
 
+  def execute
+    # TODO: リフレッシュ時にエラーにならないようにする
+    items = ShuffleList.find(execute_params[:id])&.shuffle_items
+    if items && !items.empty?
+      @result = items.sample
+      @others = items.reject { |item| item == @result }
+      flash[:success] = 'シャッフルしました'
+    else
+      flash.now[:danger] = 'シャッフルに失敗しました'
+    end
+  end
+
   private
 
   def shuffle_list_params
     params.permit(:list_name, :item_name)
+  end
+
+  def execute_params
+    params.permit(:id)
   end
 end

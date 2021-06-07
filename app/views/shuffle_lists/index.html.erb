@@ -17,6 +17,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"><%= list.name %></h5>
+                    <%= button_to "シャッフル実行", action: "execute", params: { id: list.id } %>
                     <ul>
                         <% list.shuffle_items.each do |item| %>
                         <li><%= item.name %></li>
