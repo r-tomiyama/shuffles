@@ -1,14 +1,30 @@
-<h2>新規作成</h2>
-<%= form_with(model: current_user.shuffle_lists.build, local: true) do |f| %>
-    <div class="form-group">
-        <%= f.text_field :name, class: 'form-control' %>
-    </div>
-    <%= f.submit 'Post', class: 'btn btn-primary' %>
-<% end %>
-
-<h2>一覧</h2>
-<% if @shuffle_lists %>
-    <% @shuffle_lists.each do |shuffle_list| %>
-        <p><%= shuffle_list.name %></p>
+<div style="background-color: #f9f9f9; border: 1px solid #aaa; border-radius: 5px; padding: 15px; margin-bottom: 30px;">
+    <%= form_with(local: true, url: shuffle_lists_url) do |f| %>
+        <p>新規作成する</p>
+        <div class="form-group">
+            リスト名
+            <%= f.text_field :name, name: 'list_name', class: 'form-control' %>
+            選択肢　※「,」区切りで入力
+            <%= f.text_area :name, name: 'item_name', class: 'form-control' %>
+        </div>
+        <%= f.submit 'Post', class: 'btn btn-primary' %>
     <% end %>
+</div>
+
+<% if @shuffle_lists %>
+    <div class="card-columns">
+        <% @shuffle_lists.each do |list| %>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><%= list.name %></h5>
+                    <ul>
+                        <% list.shuffle_items.each do |item| %>
+                        <li><%= item.name %></li>
+                        <% end %>
+                        <!--TODO: 3つまで表示させて他は隠す-->
+                    </ul>
+                </div>
+            </div>
+        <% end %>
+    </div>
 <% end %>

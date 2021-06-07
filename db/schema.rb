@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_603_140_545) do
+ActiveRecord::Schema.define(version: 20_210_606_085_522) do
+  create_table 'shuffle_items', force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    t.string 'name', null: false
+    t.bigint 'shuffle_list_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['shuffle_list_id'], name: 'index_shuffle_items_on_shuffle_list_id'
+  end
+
   create_table 'shuffle_lists', force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
     t.string 'name', null: false
     t.bigint 'user_id'
@@ -27,5 +35,6 @@ ActiveRecord::Schema.define(version: 20_210_603_140_545) do
     t.datetime 'updated_at', null: false
   end
 
+  add_foreign_key 'shuffle_items', 'shuffle_lists'
   add_foreign_key 'shuffle_lists', 'users'
 end

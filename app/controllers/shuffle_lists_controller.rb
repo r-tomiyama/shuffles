@@ -6,7 +6,11 @@ class ShuffleListsController < ApplicationController
   end
 
   def create
-    @shuffle_list = current_user.shuffle_lists.build(shuffle_list_params)
+    @shuffle_list = current_user.shuffle_lists.build(name: shuffle_list_params[:list_name])
+    items = shuffle_list_params[:item_name].split(',')
+    items.each { |item| @shuffle_list.shuffle_items.build(name: item) }
+    # TODO: 以下のように簡潔にかけるようにしたい
+    # @shuffle_list = current_user.shuffle_lists.build(shuffle_list_params)
     if @shuffle_list.save
       flash[:success] = 'リストを登録しました'
       redirect_to root_url
@@ -19,6 +23,6 @@ class ShuffleListsController < ApplicationController
   private
 
   def shuffle_list_params
-    params.require(:shuffle_list).permit(:name)
+    params.permit(:list_name, :item_name)
   end
 end
