@@ -1,3 +1,4 @@
+<!--TODO: 見た目を整える-->
 <div style="background-color: #f9f9f9; border: 1px solid #aaa; border-radius: 5px; padding: 15px; margin-bottom: 30px;">
     <%= form_with(local: true, url: shuffle_lists_url) do |f| %>
         <p>新規作成する</p>
@@ -11,6 +12,7 @@
     <% end %>
 </div>
 
+<!--TODO: シャッフルリスト名検索-->
 <% if @shuffle_lists %>
     <div class="card-columns">
         <% @shuffle_lists.each do |list| %>

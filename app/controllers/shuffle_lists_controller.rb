@@ -20,6 +20,9 @@ class ShuffleListsController < ApplicationController
     end
   end
 
+  # TOOD: edit
+  # TODO: delete
+
   def execute
     # TODO: リフレッシュ時にエラーにならないようにする
     items = ShuffleList.find(execute_params[:id])&.shuffle_items
