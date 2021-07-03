@@ -6,10 +6,18 @@
         <% @shuffle_lists.each do |list| %>
             <div class="card">
                 <div class="card-body">
+                    <div style="text-align: right;margin-top: -15px;margin-right: -10px;">
+                        <%= link_to execute_path(id: list.id), method: :post, data: { confirm: "シャッフルしますか？" }, class: "btn" do %>
+                            <i class="fa fa-random text-secondary" aria-hidden="true"></i>
+                        <% end %>
+                        <%= link_to edit_shuffle_list_path(id: list.id), class: "btn" do %>
+                            <i class="fa fa-edit text-secondary" aria-hidden="true"></i>
+                        <% end %>
+                        <%= link_to shuffle_list_path(id: list.id), method: :delete, data: { confirm: "削除しますか？" }, class: "btn" do %>
+                            <i class="fa fa-trash text-secondary" aria-hidden="true"></i>
+                        <% end %>
+                    </div>
                     <h5 class="card-title"><%= list.name %></h5>
-                    <%= button_to "シャッフル実行", action: "execute", params: { id: list.id } %>
-                    <%= link_to "編集", edit_shuffle_list_path(id: list.id) %>
-                    <%= link_to "削除", shuffle_list_path(id: list.id), method: :delete, data: { confirm: "削除しますか？" } %>
                     <ul>
                         <% list.shuffle_items.each do |item| %>
                         <li><%= item.name %></li>

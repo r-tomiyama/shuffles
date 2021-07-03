@@ -22,11 +22,15 @@
     <nav class="my-2 my-md-0 mr-md-3">
       <%# <a class="p-2 text-dark" href="#">サンプル</a> %>
       <% if logged_in?%>
-        <span>ログインユーザー: <%= current_user.name %></span>
-        <%= link_to 'ログアウト', logout_path, method: :post, class: "btn btn-outline-secondary" %></li>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user" aria-hidden="true"></i> <%= current_user.name %>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+          <%= link_to 'ログアウト', logout_path, method: :post, class: "dropdown-item" %>
+        </div>
+      </div>
       <% end %>
-    <%# <a class="btn btn-outline-primary" href="#">サインアップ</a>
-    <a class="btn btn-outline-primary" href="#">ログイン</a> %>
     </nav>
   </div>
     <div class="container">
