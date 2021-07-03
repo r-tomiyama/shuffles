@@ -6,11 +6,11 @@ class ShuffleListsController < ApplicationController
   end
 
   def create
-    @shuffle_list = current_user.shuffle_lists.build(name: shuffle_list_params[:list_name])
-    items = shuffle_list_params[:item_name].split(',')
+    @shuffle_list = current_user.shuffle_lists.build(name: create_shuffle_list_params[:list_name])
+    items = create_shuffle_list_params[:item_name].split(',')
     items.each { |item| @shuffle_list.shuffle_items.build(name: item) }
     # TODO: 以下のように簡潔にかけるようにしたい
-    # @shuffle_list = current_user.shuffle_lists.build(shuffle_list_params)
+    # @shuffle_list = current_user.shuffle_lists.build(create_shuffle_list_params)
     if @shuffle_list.save
       flash[:success] = 'リストを登録しました'
       redirect_to root_url
@@ -20,12 +20,35 @@ class ShuffleListsController < ApplicationController
     end
   end
 
-  # TOOD: edit
+  def edit
+    shuffle_list = ShuffleList.find(shuffle_list_params[:id])
+    @list_name = shuffle_list.name
+    @item_name = shuffle_list.shuffle_items.map { |item| item.name }.join(',')
+  end
+
+  def update
+    shuffle_list = ShuffleList.find(shuffle_list_params[:id])
+    shuffle_list.name = (create_shuffle_list_params[:list_name])
+
+    shuffle_list.shuffle_items.delete_all
+    items = create_shuffle_list_params[:item_name].split(',')
+    items.each { |item| shuffle_list.shuffle_items.build(name: item) }
+
+    if shuffle_list.save
+      flash[:success] = 'リストを更新しました'
+      redirect_to root_url
+    else
+      # TODO: ロールバックするようにしたい
+      flash.now[:danger] = 'リストの更新に失敗しました' # TODO: 失敗時のメッセージを表示したい
+      redirect_to edit_shuffle_list_url(id: shuffle_list_params[:id])
+    end
+  end
+
   # TODO: delete
 
   def execute
     # TODO: リフレッシュ時にエラーにならないようにする
-    items = ShuffleList.find(execute_params[:id])&.shuffle_items
+    items = ShuffleList.find(shuffle_list_params[:id])&.shuffle_items
     if items && !items.empty?
       @result = items.sample
       @others = items.reject { |item| item == @result }
@@ -37,11 +60,11 @@ class ShuffleListsController < ApplicationController
 
   private
 
-  def shuffle_list_params
+  def create_shuffle_list_params
     params.permit(:list_name, :item_name)
   end
 
-  def execute_params
+  def shuffle_list_params
     params.permit(:id)
   end
 end

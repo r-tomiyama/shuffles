@@ -1,0 +1,13 @@
+<!--TODO: 見た目を整える-->
+<div style="background-color: #f9f9f9; border: 1px solid #aaa; border-radius: 5px; padding: 15px; margin-bottom: 30px;">
+    <%= form_with(local: true, url: url, method: method) do |f| %>
+        <p><%= title %></p>
+        <div class="form-group">
+            リスト名
+            <%= f.text_field :name, value: @list_name, name: 'list_name', class: 'form-control' %>
+            選択肢　※「,」区切りで入力
+            <%= f.text_area :name, value: @item_name, name: 'item_name', class: 'form-control' %>
+        </div>
+        <%= f.submit '保存', class: 'btn btn-primary' %>
+    <% end %>
+</div>

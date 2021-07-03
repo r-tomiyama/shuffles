@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    # TODO email認証させる
+    # TODO: email認証させる
 
     if @user.save
       flash[:success] = 'ユーザを登録しました'

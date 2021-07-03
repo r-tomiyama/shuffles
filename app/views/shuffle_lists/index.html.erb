@@ -1,16 +1,4 @@
-<!--TODO: 見た目を整える-->
-<div style="background-color: #f9f9f9; border: 1px solid #aaa; border-radius: 5px; padding: 15px; margin-bottom: 30px;">
-    <%= form_with(local: true, url: shuffle_lists_url) do |f| %>
-        <p>新規作成する</p>
-        <div class="form-group">
-            リスト名
-            <%= f.text_field :name, name: 'list_name', class: 'form-control' %>
-            選択肢　※「,」区切りで入力
-            <%= f.text_area :name, name: 'item_name', class: 'form-control' %>
-        </div>
-        <%= f.submit 'Post', class: 'btn btn-primary' %>
-    <% end %>
-</div>
+<%= render 'form', url: shuffle_lists_url, method: 'POST', title: '新規作成する' %>
 
 <!--TODO: シャッフルリスト名検索-->
 <% if @shuffle_lists %>
@@ -20,6 +8,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><%= list.name %></h5>
                     <%= button_to "シャッフル実行", action: "execute", params: { id: list.id } %>
+                    <%= link_to "編集", edit_shuffle_list_path(id: list.id) %>
                     <ul>
                         <% list.shuffle_items.each do |item| %>
                         <li><%= item.name %></li>

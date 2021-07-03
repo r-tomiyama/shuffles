@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   post 'logout', to: 'sessions#destroy'
 
-  resources :shuffle_lists, only: %i[index create]
+  resources :shuffle_lists, only: %i[index create edit update]
   post 'execute', to: 'shuffle_lists#execute'
 end
