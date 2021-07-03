@@ -44,7 +44,11 @@ class ShuffleListsController < ApplicationController
     end
   end
 
-  # TODO: delete
+  def destroy
+    shuffle_list = ShuffleList.find(shuffle_list_params[:id])
+    shuffle_list.destroy
+    redirect_to root_url
+  end
 
   def execute
     # TODO: リフレッシュ時にエラーにならないようにする
