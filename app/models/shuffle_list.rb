@@ -3,6 +3,9 @@ class ShuffleList < ApplicationRecord
   has_many :shuffle_items, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
-  # TODO: item0個の場合に保存できないようにする
-  # TODO: 同一list内でユニーク制約をつける
+  validate :have_2_or_more_items
+
+  def have_2_or_more_items
+    errors.add(:base, 'シャッフル要素は2個以上必要です') if shuffle_items.size < 2
+  end
 end

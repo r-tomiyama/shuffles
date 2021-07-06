@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_606_085_522) do
+ActiveRecord::Schema.define(version: 20_210_706_105_649) do
   create_table 'shuffle_items', force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
     t.string 'name', null: false
     t.bigint 'shuffle_list_id'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.index %w[shuffle_list_id name], name: 'index_shuffle_items_on_shuffle_list_id_and_name', unique: true
     t.index ['shuffle_list_id'], name: 'index_shuffle_items_on_shuffle_list_id'
   end
 
