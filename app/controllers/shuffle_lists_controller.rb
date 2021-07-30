@@ -21,6 +21,7 @@ class ShuffleListsController < ApplicationController
   end
 
   def edit
+    @errors = shuffle_list_params[:errors]&.split(',')
     shuffle_list = ShuffleList.find(shuffle_list_params[:id])
     @list_name = shuffle_list.name
     @item_name = shuffle_list.shuffle_items.map(&:name).join(',')
@@ -39,11 +40,15 @@ class ShuffleListsController < ApplicationController
       flash[:success] = 'リストを更新しました'
       redirect_to root_url
     else
+      old_list = shuffle_list.dup
+      errors = shuffle_list.errors.full_messages
+
       shuffle_list.reload
       old_items.each { |item| shuffle_list.shuffle_items.build(name: item) }
       shuffle_list.save
-      flash[:danger] = 'リストの更新に失敗しました' # TODO: 失敗時のメッセージを表示したい
-      redirect_to action: :edit
+
+      flash[:danger] = 'リストの更新に失敗しました'
+      redirect_to action: :edit, errors: errors.join(',')
     end
   end
 
@@ -72,6 +77,6 @@ class ShuffleListsController < ApplicationController
   end
 
   def shuffle_list_params
-    params.permit(:id)
+    params.permit(:id, :errors)
   end
 end

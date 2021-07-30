@@ -1,1 +1,10 @@
+<% if @errors && @errors.any? %>
+  <div class="alert alert-warning">
+    <ul>
+      <% @errors.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <%= render 'form', url: shuffle_list_url, method: 'PUT', title: '編集する' %>

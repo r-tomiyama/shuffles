@@ -1,13 +1,4 @@
 <!--TODO: 見た目を整える-->
-<% if @shuffle_list && @shuffle_list.errors.any? %>
-  <div class="alert alert-warning">
-    <ul>
-      <% @shuffle_list.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
 <div style="background-color: #f9f9f9; border: 1px solid #aaa; border-radius: 5px; padding: 15px; margin-bottom: 30px;">
     <%= form_with(local: true, url: url, method: method) do |f| %>
         <p><%= title %></p>

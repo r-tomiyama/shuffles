@@ -1,3 +1,12 @@
+<% if @shuffle_list && @shuffle_list.errors.any? %>
+  <div class="alert alert-warning">
+    <ul>
+      <% @shuffle_list.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <%= render 'form', url: shuffle_lists_url, method: 'POST', title: '新規作成する' %>
 
 <!--TODO: シャッフルリスト名検索-->
