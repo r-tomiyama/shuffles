@@ -23,7 +23,7 @@ class ShuffleListsController < ApplicationController
   def edit
     shuffle_list = ShuffleList.find(shuffle_list_params[:id])
     @list_name = shuffle_list.name
-    @item_name = shuffle_list.shuffle_items.map { |item| item.name }.join(',')
+    @item_name = shuffle_list.shuffle_items.map(&:name).join(',')
   end
 
   def update
