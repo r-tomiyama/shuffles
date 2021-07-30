@@ -28,19 +28,22 @@ class ShuffleListsController < ApplicationController
 
   def update
     shuffle_list = ShuffleList.find(shuffle_list_params[:id])
-    shuffle_list.name = (create_shuffle_list_params[:list_name])
+    old_items = shuffle_list.shuffle_items.map(&:name)
 
     shuffle_list.shuffle_items.delete_all
     items = create_shuffle_list_params[:item_name].split(',')
     items.each { |item| shuffle_list.shuffle_items.build(name: item) }
 
-    if shuffle_list.save
+    if shuffle_list.valid?
+      shuffle_list.save
       flash[:success] = 'リストを更新しました'
       redirect_to root_url
     else
-      # TODO: ロールバックするようにしたい
-      flash.now[:danger] = 'リストの更新に失敗しました' # TODO: 失敗時のメッセージを表示したい
-      redirect_to edit_shuffle_list_url(id: shuffle_list_params[:id])
+      shuffle_list.reload
+      old_items.each { |item| shuffle_list.shuffle_items.build(name: item) }
+      shuffle_list.save
+      flash[:danger] = 'リストの更新に失敗しました' # TODO: 失敗時のメッセージを表示したい
+      redirect_to action: :edit
     end
   end
 
