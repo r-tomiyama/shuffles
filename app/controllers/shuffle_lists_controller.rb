@@ -15,7 +15,7 @@ class ShuffleListsController < ApplicationController
       flash[:success] = 'リストを登録しました'
       redirect_to root_url
     else
-      flash.now[:danger] = 'リストの登録に失敗しました' # TODO: 失敗時のメッセージを表示したい
+      flash.now[:danger] = 'リストの登録に失敗しました'
       render action: :index # TODO: 元々の@shuffle_listsを表示できるようにしたい
     end
   end

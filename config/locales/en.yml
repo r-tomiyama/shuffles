@@ -31,3 +31,6 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    messages:
+      require_2_or_more: "must be 2 or more"
