@@ -31,6 +31,7 @@ class ShuffleListsController < ApplicationController
     shuffle_list = ShuffleList.find(shuffle_list_params[:id])
     old_items = shuffle_list.shuffle_items.map(&:name)
 
+    shuffle_list.assign_attributes(name: create_shuffle_list_params[:list_name])
     shuffle_list.shuffle_items.delete_all
     items = create_shuffle_list_params[:item_name].split(',')
     items.each { |item| shuffle_list.shuffle_items.build(name: item) }
