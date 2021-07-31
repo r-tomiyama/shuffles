@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="card-body">
                     <div style="text-align: right;margin-top: -15px;margin-right: -10px;">
-                        <%= link_to execute_path(id: list.id), method: :post, data: { confirm: "シャッフルしますか？" }, class: "btn" do %>
+                        <%= link_to execute_path(id: list.id), method: :get, data: { confirm: "シャッフルしますか？" }, class: "btn" do %>
                             <i class="fa fa-random text-secondary" aria-hidden="true"></i>
                         <% end %>
                         <%= link_to edit_shuffle_list_path(id: list.id), class: "btn" do %>
