@@ -60,10 +60,9 @@ class ShuffleListsController < ApplicationController
   end
 
   def execute
-    # TODO: リフレッシュ時にエラーにならないようにする
     items = ShuffleList.find(shuffle_list_params[:id])&.shuffle_items
     if items && !items.empty?
-      @result = items.sample
+      @result = items.shuffle.sample
       @others = items.reject { |item| item == @result }
       flash[:success] = 'シャッフルしました'
     else
