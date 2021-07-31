@@ -7,3 +7,4 @@ ja:
     errors:
       messages:
         require_2_or_more: は2個以上必要です
+        forbid_same_items: は重複するものを登録できません
